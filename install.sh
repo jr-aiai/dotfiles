@@ -6,13 +6,12 @@ export NONINTERACTIVE=1
 
 # install brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-echo >> ~/.zshrc
-echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.zshrc
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 sudo apt update
 sudo apt-get install build-essential
 brew install gcc
+brew install lsd
 
 # install sheldon
 if ! command -v sheldon &> /dev/null
@@ -22,14 +21,15 @@ then
 fi
 # sheldon init --shell zsh
 
+# install starship
+curl -sS https://starship.rs/install.sh | sh -s -- -y
+
 # paste symbolic links
+mkdir -p ~/.config/sheldon
 ln -s ~/dotfiles/.zshrc ~
 ln -s ~/dotfiles/.config/sheldon/plugins.toml ~/.config/sheldon
-
-# setup starship
-brew install starship
-echo 'eval "$(starship init zsh)"' >> ~/.zshrc
+ln -s ~/dotfiles/.config/starship.toml ~/.config/starship.toml
 
 # set default shell to zsh
-chsh -s $(which zsh)
-source ~/.zshrc
+sudo chsh -s $(which zsh)
+zsh -c "source ~/.zshrc"
