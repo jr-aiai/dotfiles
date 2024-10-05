@@ -1,0 +1,23 @@
+shell = "zsh"
+
+[plugins]
+
+[plugins.zsh-autosuggestions]
+github = 'zsh-users/zsh-autosuggestions'
+
+[plugins.zsh-fuzzy-match]
+github = 'tarruda/zsh-fuzzy-match'
+
+[plugins.zsh-syntax-highlighting]
+github = 'zsh-users/zsh-syntax-highlighting'
+
+[plugins.zsh-completions]
+github = 'zsh-users/zsh-completions'
+apply = [
+  "zsh-comp-set-path",
+  "zsh-comp-init",
+]
+
+[templates]
+zsh-comp-set-path = "fpath=({{ dir }}/src $fpath)"
+zsh-comp-init = "rm -f ~/.zcompdump; compinit"
